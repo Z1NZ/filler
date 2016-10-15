@@ -1,5 +1,5 @@
 #	Library output
-NAME = filler
+NAME = srabah.filler
 
 #	GCC flags
 CFLAGS = -Wall -Wextra -Werror
