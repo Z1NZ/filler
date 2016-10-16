@@ -2,6 +2,7 @@
 
 void get_player(t_data *data, char *line, char *exe)
 {
+	printf("%s\n", exe);
 	if (ft_strstr(line, exe))
 	{
 		data->status |= OPT_PLAYER_SET;

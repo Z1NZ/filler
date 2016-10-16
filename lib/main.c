@@ -1,23 +1,5 @@
 #include "filler.h"
 
-
-void	get_piece(t_data *data, char *line)
-{
-	if (ft_strstr(line, "Piece"))
-	{
-		data->status |= OPT_PLATEAU_SET;
-		if ((tmp = ft_strchr(line , ':')))  /// a faire 
-			*tmp = ' ';
-		tab = ft_strsplit(line, ' ');
-		if (!check_digit(tab[1]))
-			ft_error();
-		if (!check_digit(tab[2]))
-			ft_error();
-		data->piece.x = ft_atoi(tab[2]);
-		data->piece.y = ft_atoi(tab[1]);
-		data->piece.map = ft_memalloc(sizeof(char *) * data->piece.y);
-	}
-}
 int main(int argc, char **argv)
 {
 	t_data	*data;
@@ -30,13 +12,33 @@ int main(int argc, char **argv)
 		if (get_next_line(0, &line))
 		{	
 			if (!CHECK_BIT(data->status, OPT_PLAYER_SET))
+			{
+				printf("%s\n", "get_player");
 				get_player(data, line, *argv);
-			else if (!CHECK_BIT(data->status, OPT_MAP_SET))
+			}
+			else if (!CHECK_BIT(data->status, OPT_PLATEAU_SET))
+			{
+				printf("%s\n", "get_set_map");
 				get_set_map(data, line);
-			else if (CHECK_BIT(data->status, OPT_MAP_SET) && CHECK_BIT(data->status, OPT_PLAYER_SET) && data->curent <= data->y)
+			}
+			else if (CHECK_BIT(data->status, OPT_PLATEAU_SET) && !CHECK_BIT(data->status, OPT_MAP_SET))
+			{
+
+				printf("%s current -> [%d] size -> [%d]\n", "get_map", data->curent, data->y);
 				get_map(data, line);
+			}
 			else if (!CHECK_BIT(data->status, OPT_PIECE_SET))
-				get_piece(data, line)
+			{
+				printf("%s\n", "get_set_piece");
+				get_set_piece(data, line);
+			}
+			else if (CHECK_BIT(data->status, OPT_PIECE_SET) && !CHECK_BIT(data->status, OPT_PIECE_FULL))
+			{
+				printf("%s curent [%d]   size[%d]\n", "get_piece", data->piece.curent, data->piece.y);
+				get_piece(data, line);
+			}
+			else
+				debug(data);
 			free(line);
 		}
 	}

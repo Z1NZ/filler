@@ -14,6 +14,7 @@ void	get_map(t_data *data, char *line)
 				ft_memdel((void**)&(data->map[data->curent]));
 			data->map[data->curent] = ft_strdup(tmp[1]);
 		}
-		
+		if (data->curent == (data->y - 1))
+			data->status |= OPT_MAP_SET;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: srabah <srabah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/04 20:11:58 by srabah            #+#    #+#             */
-/*   Updated: 2015/05/03 00:12:03 by srabah           ###   ########.fr       */
+/*   Updated: 2015/03/04 20:23:51 by srabah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,51 +14,51 @@
 #include <stdlib.h>
 #include "filler.h"
 
-int			get_nb_wordz(char const *s, char c)
+static size_t	count_tok(char const *s, char c)
 {
-	int	i;
-	int	j;
-	int	n;
+	char const	*p_s = s;
+	size_t		counter;
 
-	i = 0;
-	n = 0;
-	while (s[i])
+	counter = 0;
+	while (*p_s)
 	{
-		j = 0;
-		while (s[i + j] && ((s[i] == c && s[i + j] == c)
-			|| (s[i] != c && s[i + j] != c)))
-			j++;
-		if (s[i] != c)
-			n++;
-		i = i + j;
+		if (*p_s == c)
+			p_s++;
+		else
+		{
+			counter++;
+			while (*p_s && *p_s != c)
+				p_s++;
+		}
 	}
-	return (n);
+	return (counter);
 }
 
-char		**ft_strsplit(char const *s, char c)
+char			**ft_strsplit(char const *s, char c)
 {
-	char	**res;
-	int		i;
-	int		j;
-	int		k;
+	char		**big_array;
+	size_t		i;
+	size_t		nb_tok;
+	char const	*tok;
+	char const	*tok_next;
 
-	i = 0;
-	k = 0;
-	if (!s)
-		return (NULL);
-	if (!(res = (char **)malloc(sizeof(char *) * (get_nb_wordz(s, c) + 1))))
-		return (NULL);
-	while (s[i])
+	big_array = NULL;
+	if ((tok = s))
 	{
-		j = 0;
-		while (s[i + j] && ((s[i] == c && s[i + j] == c)
-			|| (s[i] != c && s[i + j] != c)))
-			j++;
-		if (s[i] != c)
-			if (!(res[k++] = ft_strsub(s, i, j)))
-				return (NULL);
-		i = i + j;
+		nb_tok = count_tok(s, c);
+		if ((big_array = (char**)malloc((nb_tok + 1) * sizeof(char*))))
+		{
+			i = 0;
+			big_array[nb_tok] = NULL;
+			while ((tok_next = ft_strchr(tok, c)))
+			{
+				if (tok_next - tok > 0)
+					big_array[i++] = ft_strsub(s, tok - s, tok_next - tok);
+				tok = tok_next + 1;
+			}
+			if ((tok_next = ft_strchr(tok, '\0')) - tok > 0)
+				big_array[i++] = ft_strsub(s, tok - s, tok_next - tok);
+		}
 	}
-	res[k] = NULL;
-	return (res);
+	return (big_array);
 }

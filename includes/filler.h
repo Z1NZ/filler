@@ -15,8 +15,17 @@
 #define OPT_PLAYER1					2
 #define OPT_PLAYER2					4
 #define OPT_MAP_SET					8
-#define OPT_PLATEAU_SET				16
-#define OPT_PIECE_SET				32
+#define OPT_PIECE_SET				16
+#define OPT_PLATEAU_SET				32
+#define OPT_PIECE_FULL				64
+
+typedef struct s_piece
+{
+	int		x;
+	int		y;
+	int		curent;
+	char 	**piece;
+}				t_piece;
 
 typedef struct	s_data
 {
@@ -25,6 +34,7 @@ typedef struct	s_data
 	int			x;
 	int			y;
 	int			curent;
+	t_piece		piece;
 }				t_data;
 
 /*
@@ -50,8 +60,14 @@ char	**ft_strsplit(char const *s, char c);
 int		ft_atoi(const char *str);
 int		ft_isdigit(int c);
 int		ft_isspace(int c);
-char		*ft_strsub(char const *s, unsigned int start, size_t len);
+char	*ft_strsub(char const *s, unsigned int start, size_t len);
 void	ft_memdel(void **ap);
+int		ft_tablen(char **tab);
+void	get_set_piece(t_data *data, char *line);
+void	get_piece(t_data *data, char *line);
+int		check_piece(char *line);
+void	debug(t_data *data);
+
 /*
 ** filler
 */

@@ -5,11 +5,10 @@ void get_set_map(t_data *data, char *line)
 	char *tmp;
 	char **tab;
 
-	if (ft_strstr(line, "plateau"))
+	if (ft_strstr(line, "Plateau"))
 	{
-		data->status |= OPT_PLATEAU_SET;
 		if ((tmp = ft_strchr(line , ':')))
-			*tmp = ' ';
+			*tmp = '\0';
 		tab = ft_strsplit(line, ' ');
 		if (!check_digit(tab[1]))
 			ft_error();
@@ -17,6 +16,8 @@ void get_set_map(t_data *data, char *line)
 			ft_error();
 		data->x = ft_atoi(tab[2]);
 		data->y = ft_atoi(tab[1]);
-		data->map = ft_memalloc(sizeof(char *) * data->y);
+		data->map = ft_memalloc(sizeof(char *) * data->y + 1);
+		*tmp = ':';
+		data->status |= OPT_PLATEAU_SET;
 	}
 }
