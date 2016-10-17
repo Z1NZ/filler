@@ -6,6 +6,7 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include <limits.h>
 #include <sys/wait.h>
 
 #define BUFF_SIZE 1024
@@ -26,6 +27,11 @@ typedef struct s_piece
 	int		curent;
 	char 	**piece;
 }				t_piece;
+typedef struct	s_pos
+{
+	unsigned int	x;
+	unsigned int	y;
+}				t_pos;
 
 typedef struct	s_data
 {
@@ -35,6 +41,7 @@ typedef struct	s_data
 	int			y;
 	int			curent;
 	t_piece		piece;
+	t_pos		pos;
 }				t_data;
 
 /*
@@ -67,14 +74,20 @@ void	get_set_piece(t_data *data, char *line);
 void	get_piece(t_data *data, char *line);
 int		check_piece(char *line);
 void	debug(t_data *data);
+char	*ft_strtrim(char const *s);
+void	ft_striter(char *s, void (*f)(char *));
+void	ft_print_tab(char **tab);
+
 
 /*
 ** filler
 */
-void ft_error();
-int check_digit(char *tmp);
-void get_set_map(t_data *data, char *line);
-void get_player(t_data *data, char *line, char *exe);
+void	ft_error();
+int		check_digit(char *tmp);
+void	get_set_map(t_data *data, char *line);
+void	get_player(t_data *data, char *line, char *exe);
 void	get_map(t_data *data, char *line);
+void	commando_para(t_data *data);
+
 
 #endif

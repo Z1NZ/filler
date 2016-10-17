@@ -38,7 +38,11 @@ int main(int argc, char **argv)
 				get_piece(data, line);
 			}
 			else
-				debug(data);
+			{
+				printf("%s\n", "SUPER commando_para");
+				commando_para(data);
+			}
+				// debug(data);
 			free(line);
 		}
 	}
