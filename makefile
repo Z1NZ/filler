@@ -2,7 +2,7 @@
 NAME = srabah.filler
 
 #	GCC flags
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 #	Includes directories
 INC_TR = includes

@@ -1,13 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_set_piece.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: srabah <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/10/26 07:18:30 by srabah            #+#    #+#             */
+/*   Updated: 2016/10/26 07:18:32 by srabah           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "filler.h"
 
 void	get_set_piece(t_data *data, char *line)
 {
 	char	*tmp;
 	char	**tab;
+
 	if (ft_strstr(line, "Piece"))
 	{
 		data->status |= OPT_PLATEAU_SET;
-		if ((tmp = ft_strchr(line , ':')))  /// a faire 
+		if ((tmp = ft_strchr(line, ':')))
 			*tmp = ' ';
 		tab = ft_strsplit(line, ' ');
 		if (!check_digit(tab[1]))

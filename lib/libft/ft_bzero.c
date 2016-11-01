@@ -13,7 +13,7 @@
 #include <string.h>
 #include "filler.h"
 
-void ft_bzero(void *s, int n)
+void	ft_bzero(void *s, int n)
 {
 	if (s && n)
 		ft_memset((unsigned char*)s, 0, n);
