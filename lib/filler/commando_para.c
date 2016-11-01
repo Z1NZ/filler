@@ -150,9 +150,9 @@ void	commando_para(t_data *data)
 		supervision(data, 'X', 'x');
 	if (data->pos)
 	{
-		ft_putnbr(data->pos->x - data->piece.org_x);
-		write(1, " ", 1);
 		ft_putnbr(data->pos->y + data->piece.org_y);
+		write(1, " ", 1);
+		ft_putnbr(data->pos->x - data->piece.org_x);
 		write(1, "\n", 1);
 	}
 	ft_free(data);
