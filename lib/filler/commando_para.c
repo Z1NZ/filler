@@ -148,6 +148,8 @@ void	commando_para(t_data *data)
 		supervision(data, 'O', 'o');
 	else
 		supervision(data, 'X', 'x');
+	fprintf(stderr, "------------[Y + %d]-----------------\n", data->piece.org_y);
+	fprintf(stderr, "------------[X - %d]-----------------\n", data->piece.org_x);
 	if (data->pos)
 	{
 		ft_putnbr(data->pos->y + data->piece.org_y);
