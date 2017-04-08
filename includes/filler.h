@@ -21,6 +21,11 @@
 #define OPT_PIECE_FULL				64
 # define COLOR 0
 
+# define RIGHT 1
+# define MIDLE 1
+# define LEFT  1
+# define ABS(number)			(number < 0) ? -(number) : (number)
+
 
 typedef struct s_piece
 {
@@ -42,7 +47,6 @@ typedef struct	s_map
 	char 		**map;
 	int	x;
 	int	y;
-	int	curent;
 }				t_map;
 
 
@@ -103,6 +107,9 @@ void	get_player(t_data *data, char *line, char *exe);
 void	get_map(t_data *data, char *line);
 void	resolve(t_data *data);
 void	add_pos(t_data *data, int x, int y);
-
+/*
+**	LIST POS
+*/
+t_pos	*top_list(t_data *data, int pos);
 
 #endif

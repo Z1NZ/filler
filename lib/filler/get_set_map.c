@@ -28,7 +28,7 @@ void	get_set_map(t_data *data, char *line)
 			ft_error();
 		data->map.y = ft_atoi(tab[1]);
 		data->map.x = ft_atoi(tab[2]);
-		data->map.map = ft_memalloc(sizeof(char *) * data->map.y + 1);
+		data->map.map = ft_memalloc(sizeof(char *) * data->map.y);
 		data->status |= OPT_PLATEAU_SET;
 		tab_free(tab);
 	}

@@ -18,7 +18,7 @@ void	ft_print_tab(char **tab)
 	{
 		while (*tab)
 		{
-			fprintf(stderr, "%s\n", *tab);
+			// fprintf(stderr, "%s\n", *tab);
 			tab++;
 		}
 	}

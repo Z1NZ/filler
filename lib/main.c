@@ -19,6 +19,10 @@ int		main(int argc, char **argv)
 
 	(void)argc;
 	data = ft_memalloc(sizeof(t_data));
+	data->pos = NULL;
+
+	data->map.map = NULL;
+
 	while ((get_next_line(STDIN_FILENO, &line)) >  0)
 	{
 		if (!CHECK_BIT(data->status, OPT_PLAYER_SET))

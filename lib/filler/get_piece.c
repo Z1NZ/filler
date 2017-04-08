@@ -18,7 +18,10 @@ void	get_piece(t_data *data, char *line)
 	{
 		data->piece.piece[data->piece.curent] = ft_strdup(line);
 		if (data->piece.curent == (data->piece.y - 1))
+		{
 			data->status |= OPT_PIECE_FULL;
+			data->piece.piece[data->piece.curent + 1] = NULL;
+		}
 		data->piece.curent++;
 	}
 }

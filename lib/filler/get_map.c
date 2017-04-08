@@ -22,9 +22,18 @@ void	get_map(t_data *data, char *line)
 	{
 		cur = (int)ft_atoi(tmp[0]);
 		if (cur <= data->map.y)
-			data->map.map[cur] = ft_strdup(tmp[1]);
+			{
+				data->map.map[cur] = ft_strdup(tmp[1]);
+				if (COLOR == 1)
+					ft_color(tmp[1]);
+			}
 		if (cur == (data->map.y - 1))
+		{
 			data->status |= OPT_MAP_SET;
+			data->map.map[cur + 1] = NULL;
+			if (COLOR == 1)
+				ft_putstr_fd("\n", 2);
+		}
 	}
 	if (tmp)
 		tab_free(tmp);

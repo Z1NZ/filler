@@ -29,7 +29,7 @@ void	get_set_piece(t_data *data, char *line)
 			ft_error();
 		data->piece.x = ft_atoi(tab[2]);
 		data->piece.y = ft_atoi(tab[1]);
-		data->piece.piece = ft_memalloc(sizeof(char *) * data->piece.y + 1);
+		data->piece.piece = ft_memalloc(sizeof(char *) * data->piece.y);
 		data->status |= OPT_PIECE_SET;
 		tab_free(tab);
 	}
