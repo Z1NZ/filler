@@ -19,6 +19,8 @@
 #define OPT_PIECE_SET				16
 #define OPT_PLATEAU_SET				32
 #define OPT_PIECE_FULL				64
+# define COLOR 0
+
 
 typedef struct s_piece
 {
@@ -52,7 +54,9 @@ typedef struct	s_data
 **
 */
 
-
+void 	ft_color(char *line);
+void	ft_putchar_fd(char c, int fd);
+void	ft_putstr_fd(char const *s, int fd);
 /*
 ** libft
 */

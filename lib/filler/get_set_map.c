@@ -26,10 +26,10 @@ void	get_set_map(t_data *data, char *line)
 			ft_error();
 		if (!check_digit(tab[2]))
 			ft_error();
-		data->x = ft_atoi(tab[2]);
 		data->y = ft_atoi(tab[1]);
+		data->x = ft_atoi(tab[2]);
 		data->map = ft_memalloc(sizeof(char *) * data->y + 1);
-		*tmp = ':';
 		data->status |= OPT_PLATEAU_SET;
+		tab_free(tab);
 	}
 }

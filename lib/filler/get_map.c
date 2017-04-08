@@ -27,6 +27,8 @@ void	get_map(t_data *data, char *line)
 			data->map[data->curent] = ft_strdup(tmp[1]);
 		}
 		if (data->curent == (data->y - 1))
+		{
 			data->status |= OPT_MAP_SET;
+		}
 	}
 }

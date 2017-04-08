@@ -1,0 +1,28 @@
+# -------------- VM  versi.n 1.1 ------------- #
+#                                              #
+# 42 / filler VM Devel.pped by: Hca. - Abanlin #
+#                                              #
+# -------------------------------------------- #
+launched ./srabah.filler
+$$$ exec p1 : [./srabah.filler]
+launched players/abanlin.filler
+$$$ exec p2 : [players/abanlin.filler]
+Plateau 15 17:
+    01234567890123456
+000 .OOOOOOOOOOOOOOOO
+001 OOOOOOOOOOOOOOOOO
+002 OOOOOOOOOOOOOOOOO
+003 OOOOOOOOOOOOOOOOO
+004 OOOOOOOOOOOOOOOOO
+005 OOOOOOOOOOOOOOo..
+006 OOOOOOOOOOOOOOoo.
+007 .OOOOO...O.......
+008 ..OO.............
+009 .................
+010 .................
+011 .................
+012 ..............X..
+013 .................
+014 .................
+Piece 1 3:
+***

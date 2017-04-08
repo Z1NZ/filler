@@ -22,7 +22,6 @@ int		main(int argc, char **argv)
 	data->map = NULL;
 	while ((get_next_line(STDIN_FILENO, &line)) >  0)
 	{
-		 // fprintf(stderr, "[[%s]]\n", line);
 		if (!CHECK_BIT(data->status, OPT_PLAYER_SET))
 			get_player(data, line, *argv);
 		else if (!CHECK_BIT(data->status, OPT_PLATEAU_SET))

@@ -14,8 +14,10 @@ void	ft_free(t_data *data)
 	data->piece.org_y = 0;
 	data->piece.curent = 0;
 	data->curent = 0;
+
 	data->status ^= OPT_PLATEAU_SET;
 	data->status ^= OPT_MAP_SET;
 	data->status ^= OPT_PIECE_SET;
 	data->status ^= OPT_PIECE_FULL;
+
 }
