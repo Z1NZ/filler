@@ -19,7 +19,6 @@ int		main(int argc, char **argv)
 
 	(void)argc;
 	data = ft_memalloc(sizeof(t_data));
-	data->map = NULL;
 	while ((get_next_line(STDIN_FILENO, &line)) >  0)
 	{
 		if (!CHECK_BIT(data->status, OPT_PLAYER_SET))
@@ -30,12 +29,13 @@ int		main(int argc, char **argv)
 				&& !CHECK_BIT(data->status, OPT_MAP_SET))
 			get_map(data, line);
 		else if (!CHECK_BIT(data->status, OPT_PIECE_SET))
+
 			get_set_piece(data, line);
 		else if (CHECK_BIT(data->status, OPT_PIECE_SET)
 				&& !CHECK_BIT(data->status, OPT_PIECE_FULL))
 			get_piece(data, line);
 		if (CHECK_BIT(data->status, OPT_PIECE_FULL))
-			commando_para(data);
+			resolve(data);
 	}
 	return (0);
 }

@@ -14,21 +14,18 @@
 
 void	get_map(t_data *data, char *line)
 {
-	char	**tmp;
+	char				**tmp;
+	 int		cur;
 
 	tmp = ft_strsplit(line, ' ');
 	if (ft_tablen(tmp) > 1)
 	{
-		data->curent = ft_atoi(tmp[0]);
-		if (data->curent <= data->y)
-		{
-			if (data->map[data->curent])
-				ft_memdel((void**)&(data->map[data->curent]));
-			data->map[data->curent] = ft_strdup(tmp[1]);
-		}
-		if (data->curent == (data->y - 1))
-		{
+		cur = (int)ft_atoi(tmp[0]);
+		if (cur <= data->map.y)
+			data->map.map[cur] = ft_strdup(tmp[1]);
+		if (cur == (data->map.y - 1))
 			data->status |= OPT_MAP_SET;
-		}
 	}
+	if (tmp)
+		tab_free(tmp);
 }

@@ -2,18 +2,28 @@
 
 void	ft_free(t_data *data)
 {
-	free((data->map));
-	free((data->pos));
+
+
+	ft_putstr_fd("pos \n", 2);
+	ft_del_list(data->pos);
+
+	ft_putstr_fd("map. \n", 2);
+	tab_free(data->map.map);
+	ft_putstr_fd("piece. \n", 2);
+	tab_free(data->piece.piece);
 	data->pos = NULL;
-	data->map = NULL;
-	data->x = 0;
-	data->y = 0;
+	data->piece.piece = NULL;
+	data->map.map= NULL;
+	data->map.x = 0;
+	data->map.y = 0;
+	data->map.curent = 0;
+	
+
+
+
 	data->piece.x = 0;
-	data->piece.org_x = 0;
 	data->piece.y = 0;
-	data->piece.org_y = 0;
 	data->piece.curent = 0;
-	data->curent = 0;
 
 	data->status ^= OPT_PLATEAU_SET;
 	data->status ^= OPT_MAP_SET;

@@ -24,28 +24,32 @@
 
 typedef struct s_piece
 {
-	int		x;
-	int		y;
-	int		curent;
-	int		org_x;
-	int		org_y;
-	char 	**piece;
+	int	x;
+	int	y;
+	int	curent;
+	char 			**piece;
 }				t_piece;
 
 typedef struct	s_pos
 {
-	unsigned int	x;
-	unsigned int	y;
+	int	x;
+	int	y;
 	struct s_pos	*next;
 }				t_pos;
+
+typedef struct	s_map
+{
+	char 		**map;
+	int	x;
+	int	y;
+	int	curent;
+}				t_map;
+
 
 typedef struct	s_data
 {
 	int			status;
-	char		**map;
-	int			x;
-	int			y;
-	int			curent;
+	t_map		map;
 	t_piece		piece;
 	t_pos		*pos;
 }				t_data;
@@ -97,7 +101,7 @@ int		check_digit(char *tmp);
 void	get_set_map(t_data *data, char *line);
 void	get_player(t_data *data, char *line, char *exe);
 void	get_map(t_data *data, char *line);
-void	commando_para(t_data *data);
+void	resolve(t_data *data);
 void	add_pos(t_data *data, int x, int y);
 
 
