@@ -1,6 +1,4 @@
-seed = 2888
-O: error on input
-./srabah.filler: Segfault at 0
+seed = 5630
 ./players/abanlin.filler won
 Score:
-0AGAINST162
+64AGAINST97

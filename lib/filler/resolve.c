@@ -141,7 +141,7 @@ void	resolve(t_data *data)
 	if (data->pos != NULL)
 	{
 
-		tmp = top_list(data, MIDLE);
+		tmp = top_list(data, RIGHT);
 		ft_putnbr((tmp->y));
 		write(1, " ", 1);
 		ft_putnbr((tmp->x));
