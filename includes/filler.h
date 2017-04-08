@@ -111,5 +111,6 @@ void	add_pos(t_data *data, int x, int y);
 **	LIST POS
 */
 t_pos	*top_list(t_data *data, int pos);
+t_pos		*bot_list(t_data *data, int pos);
 
 #endif

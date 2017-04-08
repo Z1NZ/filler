@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   commando_para.c                                    :+:      :+:    :+:   */
+/*   resolve.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srabah <srabah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/26 07:00:44 by srabah            #+#    #+#             */
-/*   Updated: 2016/11/11 14:02:29 by srabah           ###   ########.fr       */
+/*   Updated: 2017/04/08 16:12:04 by srabah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,8 +140,7 @@ void	resolve(t_data *data)
 
 	if (data->pos != NULL)
 	{
-
-		tmp = top_list(data, RIGHT);
+		tmp = bot_list(data, RIGHT);
 		ft_putnbr((tmp->y));
 		write(1, " ", 1);
 		ft_putnbr((tmp->x));

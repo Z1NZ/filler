@@ -16,9 +16,8 @@ t_pos		*get_right_bot(t_data *data)
 	ret = NULL;
 	while(tmp)
 	{
-		if (tmp->x >= old_x && tmp->y >= old_y)
+		if (tmp->x >= old_x && tmp->y > old_y)
 		{
-			fprintf(stderr, "y=> [%d] x=> [%d]\n", tmp->y, tmp->x);
 			old_x = tmp->x;
 			old_y = tmp->y;
 			ret = tmp;
@@ -42,6 +41,7 @@ t_pos		*get_midel_bot(t_data *data)
 	old_x = INT_MAX;
 	old_y = 0;
 	ret = NULL;
+	fprintf(stderr, "y=> [%d] x=> [%d]\n", tmp->y, tmp->x);
 	while(tmp)
 	{
 		if (ABS(value - tmp->x) <= old_x && tmp->y >= old_y)
