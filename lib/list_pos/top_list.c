@@ -2,7 +2,7 @@
 #include "filler.h"
 
 
-t_pos		*get_right_top(t_data *data)
+static t_pos		*get_right_top(t_data *data)
 {
 	t_pos	*tmp;
 	t_pos	*ret;
@@ -18,7 +18,6 @@ t_pos		*get_right_top(t_data *data)
 	{
 		if (tmp->x >= old_x && tmp->y <= old_y)
 		{
-			fprintf(stderr, "y=> [%d] x=> [%d]\n", tmp->y, tmp->x);
 			old_x = tmp->x;
 			old_y = tmp->y;
 			ret = tmp;
@@ -29,7 +28,7 @@ t_pos		*get_right_top(t_data *data)
 }
 
 
-t_pos		*get_midel_top(t_data *data)
+static t_pos		*get_midel_top(t_data *data)
 {
 	t_pos	*tmp;
 	t_pos	*ret;
@@ -58,8 +57,8 @@ t_pos		*get_midel_top(t_data *data)
 t_pos		*top_list(t_data *data, int pos)
 {
 	if (pos == RIGHT)
-	return(get_right_top(data));
-	if (pos == MIDLE)
+		return(get_right_top(data));
+	else if (pos == MIDLE)
 		return(get_midel_top(data));
 	else
 		return(data->pos);

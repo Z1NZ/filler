@@ -1,44 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   resolve.c                                          :+:      :+:    :+:   */
+/*   commando_para.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srabah <srabah@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/10/26 07:00:44 by srabah            #+#    #+#             */
-/*   Updated: 2017/04/08 16:12:04 by srabah           ###   ########.fr       */
+/*   Updated: 2016/11/11 14:02:29 by srabah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-void 	ft_color(char *map)
+void 	ft_color(char **map)
 {
 
-int i = 0;
-	while(map[i] != '\0')
+	int i = 0;
+	int y = 0;
+
+
+	ft_putstr_fd("\x1b[0;0H", 2);
+	while(map[y])
 	{
-	 		if (map[i] == 'O')
+		i = 0;
+		while(map[y][i] != '\0')
+		{
+			if (map[y][i] == 'O')
 			{	
-				ft_putstr_fd("\033[35m", 2);
+				ft_putstr_fd("\033[31m", 2);
+				ft_putstr_fd("\033[41m", 2);
 				ft_putchar_fd('O', 2);
 				ft_putstr_fd("\033[0m", 2);
 			}
-	 		else if (map[i] == 'X')
+			else if (map[y][i] == 'X')
 			{	
-				ft_putstr_fd("\033[36m", 2);
+				ft_putstr_fd("\033[33m", 2);
+				ft_putstr_fd("\033[43m", 2);
 				ft_putchar_fd('X', 2);
 				ft_putstr_fd("\033[0m", 2);
 			}
-					else
+			else
 			{	
-				ft_putstr_fd("\033[37m", 2);
-	  			ft_putchar_fd('.', 2);
-	  			ft_putstr_fd("\033[0m", 2);
-	  		}
-	  		i++;
+				ft_putstr_fd("\033[30m", 2);
+				ft_putchar_fd('.', 2);
+				ft_putstr_fd("\033[0m", 2);
+			}
+			i++;
+		}
+		ft_putstr_fd("\n", 2);
+		y++;
 	}
-	ft_putstr_fd("\n", 2);
 }
 
 int		check_add(t_data *data, int pos_x, int pos_y, char c, int cut_x, int cut_y)
@@ -70,7 +81,7 @@ int		check_add(t_data *data, int pos_x, int pos_y, char c, int cut_x, int cut_y)
 		}
 		++y;
 	}
-	if (touch == 1)
+	if (touch == 1 && (cut_y + y) == data->piece.y)
 		return (1);
 	return (0);
 }
@@ -135,12 +146,13 @@ void	resolve(t_data *data)
 {
 	t_pos *tmp;
 
+	if (COLOR == 1)
+		ft_color(data->map.map);
 	cut_piece(data);
 
-
-	if (data->pos != NULL)
+	if ((tmp = algo(data)))
 	{
-		tmp = bot_list(data, RIGHT);
+		
 		ft_putnbr((tmp->y));
 		write(1, " ", 1);
 		ft_putnbr((tmp->x));

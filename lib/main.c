@@ -20,8 +20,12 @@ int		main(int argc, char **argv)
 	(void)argc;
 	data = ft_memalloc(sizeof(t_data));
 	data->pos = NULL;
-
 	data->map.map = NULL;
+	if (COLOR)
+	{	
+		ft_putstr_fd("\x1b[2J", 2);
+		ft_putstr_fd("\e[?25l", 2);
+	}
 
 	while ((get_next_line(STDIN_FILENO, &line)) >  0)
 	{
@@ -30,16 +34,17 @@ int		main(int argc, char **argv)
 		else if (!CHECK_BIT(data->status, OPT_PLATEAU_SET))
 			get_set_map(data, line);
 		else if (CHECK_BIT(data->status, OPT_PLATEAU_SET)
-				&& !CHECK_BIT(data->status, OPT_MAP_SET))
+			&& !CHECK_BIT(data->status, OPT_MAP_SET))
 			get_map(data, line);
 		else if (!CHECK_BIT(data->status, OPT_PIECE_SET))
 
 			get_set_piece(data, line);
 		else if (CHECK_BIT(data->status, OPT_PIECE_SET)
-				&& !CHECK_BIT(data->status, OPT_PIECE_FULL))
+			&& !CHECK_BIT(data->status, OPT_PIECE_FULL))
 			get_piece(data, line);
 		if (CHECK_BIT(data->status, OPT_PIECE_FULL))
 			resolve(data);
 	}
+	ft_putstr_fd("\e[?25h", 2);
 	return (0);
 }

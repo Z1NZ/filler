@@ -19,11 +19,13 @@
 #define OPT_PIECE_SET				16
 #define OPT_PLATEAU_SET				32
 #define OPT_PIECE_FULL				64
-# define COLOR 1
+# define COLOR 0
 
-# define RIGHT 1
-# define MIDLE 2
-# define LEFT  3
+# define RIGHT	1
+# define MIDLE	2
+# define LEFT	3
+# define UP		4
+# define DOWN	5
 # define ABS(number)			(number < 0) ? -(number) : (number)
 
 
@@ -62,9 +64,11 @@ typedef struct	s_data
 **
 */
 
-void 	ft_color(char *line);
+void 	ft_color(char **line);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char const *s, int fd);
+t_pos	*algo(t_data *data);
+
 /*
 ** libft
 */
@@ -110,7 +114,11 @@ void	add_pos(t_data *data, int x, int y);
 /*
 **	LIST POS
 */
-t_pos	*top_list(t_data *data, int pos);
+t_pos		*top_list(t_data *data, int pos);
 t_pos		*bot_list(t_data *data, int pos);
+t_pos		*right_list(t_data *data, int pos);
+t_pos		*left_list(t_data *data, int pos);
+
+
 
 #endif

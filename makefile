@@ -21,7 +21,7 @@ $(NAME): $(OBJS)
 	@echo "Terminée"
 
 # To obtain object files
-%.o: %.c
+%.o: %.c 
 	@$(CC) -c $(CFLAGS) $(INCLUDES) $< -o $@
 
 # To remove generated files
