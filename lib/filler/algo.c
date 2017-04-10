@@ -58,17 +58,27 @@ t_pos		*close_position(t_data *data)
 	while(data->map.map[y])
 	{
 		x = 0;
-		while(data->map.map[x])
+		while(data->map.map[y][x])
 		{
-			if (data->map.map[y][x] == 'x')
+			if (data->map.map[y][x] == 'X' || data->map.map[y][x] == 'x')
 				break;
 			x++;
 		}
+		if (x != data->map.x)
+			break;
 		y++;
 	}
+
+	if ((x = 0 || y == 0))
+	{
+		x = data->map.x;
+		y = data->map.y;
+	}
+	// fprintf(stderr, "x [%d] y [%d]\n",x,y);
+	// sleep(1);
 	tmp = data->pos;
-	int old_x = 0;
-	int old_y = 0;
+	int old_x = INT_MAX;
+	int old_y = INT_MAX;
 	t_pos *ret;
 	int len_x_piece = size_x_real_piece(data);
 	int len_y_piece = size_y_real_piece(data);
@@ -76,10 +86,16 @@ t_pos		*close_position(t_data *data)
 	ret = NULL;
 	while(tmp)
 	{
-		if ((ABS(tmp->x + len_x_piece ) - x < old_x ) && ABS((tmp->y + len_y_piece ) - y ) < old_y)
+		if (ABS((tmp->x + len_x_piece) - x) <= old_x && ABS((tmp->y + len_y_piece) - y) <= old_y)
+		{
+			// printf("tmp[%d][%d]", tmp->y, tmp->x);
+			old_y = ABS((tmp->y + len_y_piece)  - y);
+			old_x = ABS((tmp->x + len_x_piece) - x);
 			ret = tmp;
+		}
 		tmp = tmp->next;
 	}
+	// sleep(1);
 	return(ret);
 }
 
@@ -225,7 +241,7 @@ t_pos	*algo_first(t_data *data)
 t_pos		*algo(t_data *data)
 {
 	if (CHECK_BIT(data->status, OPT_PLAYER1))
-		return(algo_first(data));
+		return(close_position(data));
 	else
 		return(algo_second(data));
 }
