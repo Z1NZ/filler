@@ -20,6 +20,7 @@ void 	ft_color(char **map)
 
 
 	ft_putstr_fd("\x1b[0;0H", 2);
+	usleep(50000); 
 	while(map[y])
 	{
 		i = 0;
@@ -28,14 +29,14 @@ void 	ft_color(char **map)
 			if (map[y][i] == 'O')
 			{	
 				ft_putstr_fd("\033[31m", 2);
-				ft_putstr_fd("\033[41m", 2);
+				// ft_putstr_fd("\033[41m", 2);
 				ft_putchar_fd('O', 2);
 				ft_putstr_fd("\033[0m", 2);
 			}
 			else if (map[y][i] == 'X')
 			{	
 				ft_putstr_fd("\033[33m", 2);
-				ft_putstr_fd("\033[43m", 2);
+				// ft_putstr_fd("\033[43m", 2);
 				ft_putchar_fd('X', 2);
 				ft_putstr_fd("\033[0m", 2);
 			}
@@ -146,8 +147,6 @@ void	resolve(t_data *data)
 {
 	t_pos *tmp;
 
-	if (COLOR == 1)
-		ft_color(data->map.map);
 	cut_piece(data);
 
 	if ((tmp = algo(data)))

@@ -1,9 +1,6 @@
 #include "filler.h"
 
 
-
-
-
 int size_x_real_piece(t_data *data)
 {
 	int x;
@@ -48,7 +45,7 @@ int size_y_real_piece(t_data *data)
 }
 
 
-t_pos		*close_position(t_data *data)
+t_pos		*close_position(t_data *data, char c, char b)
 {
 	t_pos	*tmp;
 	int		y;
@@ -60,7 +57,7 @@ t_pos		*close_position(t_data *data)
 		x = 0;
 		while(data->map.map[y][x])
 		{
-			if (data->map.map[y][x] == 'X' || data->map.map[y][x] == 'x')
+			if (data->map.map[y][x] == c || data->map.map[y][x] == b )
 				break;
 			x++;
 		}
@@ -68,42 +65,31 @@ t_pos		*close_position(t_data *data)
 			break;
 		y++;
 	}
-
-	if ((x = 0 || y == 0))
-	{
-		x = data->map.x;
-		y = data->map.y;
-	}
-	// fprintf(stderr, "x [%d] y [%d]\n",x,y);
-	// sleep(1);
 	tmp = data->pos;
 	int old_x = INT_MAX;
 	int old_y = INT_MAX;
 	t_pos *ret;
-	int len_x_piece = size_x_real_piece(data);
-	int len_y_piece = size_y_real_piece(data);
 
 	ret = NULL;
 	while(tmp)
 	{
-		if (ABS((tmp->x + len_x_piece) - x) <= old_x && ABS((tmp->y + len_y_piece) - y) <= old_y)
+		if (ABS(tmp->x - x) < old_x && ABS(tmp->y - y) < old_y)
 		{
-			// printf("tmp[%d][%d]", tmp->y, tmp->x);
-			old_y = ABS((tmp->y + len_y_piece)  - y);
-			old_x = ABS((tmp->x + len_x_piece) - x);
+			// fprintf(stderr,	"tmp[%d][%d]", tmp->y, tmp->x);
+			old_y = ABS(tmp->y  - y);
+			old_x = ABS(tmp->x - x);
 			ret = tmp;
 		}
 		tmp = tmp->next;
 	}
-	// sleep(1);
-	return(ret);
+	return(ret); 
 }
 
 
 
 
 
-int min_pos_x(t_data *data)
+int min_pos_x(t_data *data, char c)
 {
 	int y;
 	int x;
@@ -114,9 +100,9 @@ int min_pos_x(t_data *data)
 	while(data->map.map[y])
 	{
 		x = 0;
-		while(data->map.map[x])
+		while(data->map.map[y][x])
 		{
-			if (data->map.map[y][x] == 'O' && x < ret_x)
+			if (data->map.map[y][x] == c && x < ret_x)
 				ret_x = x;
 			x++;
 		}
@@ -125,7 +111,7 @@ int min_pos_x(t_data *data)
 	return(ret_x);
 }
 
-int max_pos_x(t_data *data)
+int max_pos_x(t_data *data, char c)
 {
 	int y;
 	int x;
@@ -136,9 +122,9 @@ int max_pos_x(t_data *data)
 	while(data->map.map[y])
 	{
 		x = 0;
-		while(data->map.map[x])
+		while(data->map.map[y][x])
 		{
-			if (data->map.map[y][x] == 'O' && x > ret_x)
+			if (data->map.map[y][x] == c && x > ret_x)
 				ret_x = x;
 			x++;
 		}
@@ -147,7 +133,7 @@ int max_pos_x(t_data *data)
 	return(ret_x);
 }
 
-int min_pos_y(t_data *data)
+int min_pos_y(t_data *data, char c)
 {
 	int y;
 	int x;
@@ -156,9 +142,9 @@ int min_pos_y(t_data *data)
 	while(data->map.map[y])
 	{
 		x = 0;
-		while(data->map.map[x])
+		while(data->map.map[y][x])
 		{
-			if (data->map.map[y][x] == 'O')
+			if (data->map.map[y][x] == c)
 				return(y);
 			x++;
 		}
@@ -167,7 +153,7 @@ int min_pos_y(t_data *data)
 	return(0);
 }
 
-int max_pos_y(t_data *data)
+int max_pos_y(t_data *data, char c)
 {
 	int y;
 	int x;
@@ -178,9 +164,9 @@ int max_pos_y(t_data *data)
 	while(data->map.map[y])
 	{
 		x = 0;
-		while(data->map.map[x])
+		while(data->map.map[y][x])
 		{
-			if (data->map.map[y][x] == 'O' && y > ret_y)
+			if (data->map.map[y][x] == c && y > ret_y)
 				ret_y = y;
 			x++;
 		}
@@ -197,19 +183,17 @@ t_pos	*algo_second(t_data *data)
 	int min_y;
 	int max_y;
 
-	max_x = max_pos_x(data);
-	min_x = min_pos_x(data);
-	min_y = min_pos_y(data);
-	max_y = max_pos_y(data);
+	max_x = max_pos_x(data, 'X');
+	min_x = min_pos_x(data, 'X');
+	min_y = min_pos_y(data, 'X');
+	max_y = max_pos_y(data, 'X');
 
-	if (min_x == 0 || min_y == 0)
-		return(right_list(data, RIGHT));
-	else if (min_x > 0)
-		return(top_list(data, LEFT));
-	else if (max_x < data->map.x)
-		return(right_list(data, RIGHT));
-	else
+	if (min_y != 0 && !ft_strstr(data->map.map[0], "O"))
+		return(top_list(data, RIGHT));
+	else if (max_y < data->map.y)
 		return(bot_list(data, LEFT));
+	else
+		return(close_position(data, 'o', 'O'));
 }
 
 t_pos	*algo_first(t_data *data)
@@ -219,29 +203,39 @@ t_pos	*algo_first(t_data *data)
 	int min_y;
 	int max_y;
 
-	max_x = max_pos_x(data);
-	min_x = min_pos_x(data);
-	min_y = min_pos_y(data);
-	max_y = max_pos_y(data);
+	max_x = max_pos_x(data, 'O');
+	min_x = min_pos_x(data, 'O');
+	min_y = min_pos_y(data, 'O');
+	max_y = max_pos_y(data, 'O');
+	// usleep(50000);
+	 if (max_x < data->map.x - 1  && min_y > 0)
+	 {
 
-	if (max_x == data->map.x || max_y == data->map.y)
+		// fprintf(stderr, "max x = > %d map x [%d]\n", max_x, data->map.x);
+		return(top_list(data, RIGHT));
+	 }
+	else if (max_y < data->map.y - 1)
 	{
-		return(top_list(data, LEFT));
-	}
-	else if (max_x < data->map.x)
-	{
-		return(bot_list(data, RIGHT));
+		return(bot_list(data, LEFT));
 	}
 	else
 	{
-		return(bot_list(data, LEFT));
+		return(right_list(data, MIDLE));
 	}
 }
 
 t_pos		*algo(t_data *data)
 {
-	if (CHECK_BIT(data->status, OPT_PLAYER1))
-		return(close_position(data));
+	if (data->map.x < 20)
+	{
+		if (CHECK_BIT(data->status, OPT_PLAYER1))
+			return(algo_first(data));
+		else
+			return(algo_second(data));
+	}
+	else if (CHECK_BIT(data->status, OPT_PLAYER1))
+		return(close_position(data, 'X', 'x'));
 	else
-		return(algo_second(data));
+		return(close_position(data, 'O', 'o'));
+
 }

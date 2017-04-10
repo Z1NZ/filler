@@ -21,6 +21,7 @@
 #define OPT_PIECE_FULL				64
 # define COLOR 0
 
+
 # define RIGHT	1
 # define MIDLE	2
 # define LEFT	3
