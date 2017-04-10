@@ -29,14 +29,14 @@ void 	ft_color(char **map)
 			if (map[y][i] == 'O')
 			{	
 				ft_putstr_fd("\033[31m", 2);
-				// ft_putstr_fd("\033[41m", 2);
+				ft_putstr_fd("\033[41m", 2);
 				ft_putchar_fd('O', 2);
 				ft_putstr_fd("\033[0m", 2);
 			}
 			else if (map[y][i] == 'X')
 			{	
 				ft_putstr_fd("\033[33m", 2);
-				// ft_putstr_fd("\033[43m", 2);
+				ft_putstr_fd("\033[43m", 2);
 				ft_putchar_fd('X', 2);
 				ft_putstr_fd("\033[0m", 2);
 			}

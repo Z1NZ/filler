@@ -221,7 +221,7 @@ t_pos		*map01_p2(t_data *data)
 	min_x = min_pos_x(data, 'X');
 	min_y = min_pos_y(data, 'X');
 	max_y = max_pos_y(data, 'X');
-	usleep(50000);
+	// usleep(50000);
 	if (min_y > (data->map.y / 2) - 2)
 		return(top_list(data, LEFT));
 	else if (min_x > 0)
@@ -261,18 +261,35 @@ t_pos		*map02_p1(t_data *data)
 	min_y = min_pos_y(data, 'O');
 	max_y = max_pos_y(data, 'O');
 	// usleep(50000);
-	if (max_x < data->map.x - 1)
-	{
-		return(bot_list(data, RIGHT));
-	}
-	else if (min_y != 0 && min_x != 0)
+	if (min_y > (data->map.y / 2) + 6)
 	{
 		return(top_list(data, LEFT));
 	}
+	else if (min_x > 0)
+	{
+		if (min_x - 50 > 0)
+			return(left_list(data, DOWN));
+		else
+			return(left_list(data, MIDLE));
+	}
 	else
 	{
-		return(right_list(data, MIDLE));
+		if (min_y != 0)
+		return(top_list(data, RIGHT));
+		else if (max_y != data->map.y - 1)
+			return(bot_list(data, RIGHT));
+		else
+			return(bot_list(data, MIDLE));
+
 	}
+	// else if (min_y != 0 )
+	// {
+	// 	return(top_list(data, RIGHT));
+	// }
+	// else
+	// {
+	// 	return(top_list(data, LEFT));
+	// }
 }
 
 
@@ -287,18 +304,17 @@ t_pos		*map02_p2(t_data *data)
 	min_x = min_pos_x(data, 'X');
 	min_y = min_pos_y(data, 'X');
 	max_y = max_pos_y(data, 'X');
-	usleep(50000);
-	if (min_y > (data->map.y / 2) - 2)
-		return(top_list(data, LEFT));
-	else if (min_x > 0)
-	{
 
-		return(bot_list(data, LEFT));
-	}
-	else
+	if (max_x < data->map.x - 1)
 	{
-		return(top_list(data, RIGHT));
+		return (bot_list(data, RIGHT));
 	}
+	else if (min_x != 0)
+		return (left_list(data, MIDLE));
+	else if (!ft_strstr(data->map.map[0], "O"))
+		return (bot_list(data, MIDLE));
+	else
+		return(top_list(data, LEFT));
 }
 
 
@@ -341,8 +357,8 @@ t_pos		*algo(t_data *data)
 	else
 	{
 		if (CHECK_BIT(data->status, OPT_PLAYER1))
-			return(map0_p2(data));
+			return(map02_p1(data));
 		else
-			return(map01_p1(data));
+			return(map02_p2(data));
 	}
 }
