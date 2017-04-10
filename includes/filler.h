@@ -19,7 +19,7 @@
 #define OPT_PIECE_SET				16
 #define OPT_PLATEAU_SET				32
 #define OPT_PIECE_FULL				64
-# define COLOR 0
+# define COLOR 1
 
 
 # define RIGHT	1

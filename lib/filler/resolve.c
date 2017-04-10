@@ -20,7 +20,7 @@ void 	ft_color(char **map)
 
 
 	ft_putstr_fd("\x1b[0;0H", 2);
-	usleep(50000); 
+	// usleep(50000); 
 	while(map[y])
 	{
 		i = 0;
