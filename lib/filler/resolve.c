@@ -12,135 +12,81 @@
 
 #include "filler.h"
 
-void 	ft_color(char **map)
+int		check_add(t_data *data, int *p, char c, int *b)
 {
-
-	int i = 0;
-	int y = 0;
-
-
-	ft_putstr_fd("\x1b[0;0H", 2);
-	// usleep(50000); 
-	while(map[y])
-	{
-		i = 0;
-		while(map[y][i] != '\0')
-		{
-			if (map[y][i] == 'O')
-			{	
-				ft_putstr_fd("\033[31m", 2);
-				ft_putstr_fd("\033[41m", 2);
-				ft_putchar_fd('O', 2);
-				ft_putstr_fd("\033[0m", 2);
-			}
-			else if (map[y][i] == 'X')
-			{	
-				ft_putstr_fd("\033[33m", 2);
-				ft_putstr_fd("\033[43m", 2);
-				ft_putchar_fd('X', 2);
-				ft_putstr_fd("\033[0m", 2);
-			}
-			else
-			{	
-				ft_putstr_fd("\033[30m", 2);
-				ft_putchar_fd('.', 2);
-				ft_putstr_fd("\033[0m", 2);
-			}
-			i++;
-		}
-		ft_putstr_fd("\n", 2);
-		y++;
-	}
-}
-
-int		check_add(t_data *data, int pos_x, int pos_y, char c, int cut_x, int cut_y)
-{
-	char	**piece;
-	char	**map;
 	int		x;
 	int		y;
 	int		touch;
 
 	touch = 0;
 	y = 0;
-	piece = data->piece.piece;
-	map = data->map.map;
-
-
-	while (pos_y + y < data->map.y && cut_y + y < data->piece.y)
+	while (p[0] + y < MAP.y && b[0] + y < PIECE.y)
 	{
 		x = 0;
-		while (pos_x + x  <= data->map.x && cut_x + x < data->piece.x)
+		while (p[1] + x <= MAP.x && b[1] + x < PIECE.x)
 		{
 			if (touch > 1)
 				return (0);
-			if (piece[cut_y + y][cut_x + x] == '*' && map[pos_y + y][pos_x + x] == c)
+			if (P_P[b[0] + y][b[1] + x] == '*' && M_M[p[0] + y][p[1] + x] == c)
 				touch++;
-			else if (piece[cut_y + y][cut_x + x] == '*' && map[pos_y + y][pos_x+ x] != c && map[pos_y + y][pos_x+ x] != '.')
-				return(0);
+			else if (P_P[b[0] + y][b[1] + x] == '*'
+		&& M_M[p[0] + y][p[1] + x] != c && M_M[p[0] + y][p[1] + x] != '.')
+				return (0);
 			++x;
 		}
 		++y;
 	}
-	if (touch == 1 && (cut_y + y) == data->piece.y)
+	if (touch == 1 && (b[0] + y) == PIECE.y)
 		return (1);
 	return (0);
 }
 
-
-
-
-void	check_map(t_data *data, char c, int cut_x, int cut_y)
+void	check_map(t_data *data, char c, int *tab)
 {
 	char	**tmp;
-	int		x;
-	int		y;
+	int		cor[2];
 
-	y = 0;
-	tmp = data->map.map;
-	while (tmp[y])
+	cor[0] = 0;
+	tmp = M_M;
+	while (tmp[cor[0]])
 	{
-		x = 0;
-		while (tmp[y][x]!= '\0')
+		cor[1] = 0;
+		while (tmp[cor[0]][cor[1]] != '\0')
 		{
-			if (check_add(data, x, y, c, cut_x, cut_y) == 1)
-				add_pos(data, x - cut_x, y - cut_y);
-			++x;
+			if (check_add(data, cor, c, tab) == 1)
+				add_pos(data, cor[1] - tab[1], cor[0] - tab[0]);
+			++cor[1];
 		}
-		++y;
+		++cor[0];
 	}
 }
-
 
 void	cut_piece(t_data *data)
 {
 	int y;
 	int x;
-	int cut_y;
-	int cut_x;
+	int cut[2];
 
 	y = 0;
-	while(ft_strstr(data->piece.piece[y],"*") == NULL)
+	while (ft_strstr(P_P[y], "*") == NULL)
 		y++;
-	cut_y = y;
-	cut_x = INT_MAX;
-	while(y < data->piece.y)
+	cut[0] = y;
+	cut[1] = INT_MAX;
+	while (y < PIECE.y)
 	{
 		x = 0;
-		while(x < data->piece.x)
+		while (x < PIECE.x)
 		{
-			if (data->piece.piece[y][x] == '*' && x < cut_x)
-				cut_x = x;
+			if (P_P[y][x] == '*' && x < cut[1])
+				cut[1] = x;
 			x++;
 		}
 		y++;
 	}
-	if (cut_x == INT_MAX)
-		cut_x = 0;
-	if (CHECK_BIT(data->status, OPT_PLAYER1))
-		check_map(data, 'O', cut_x, cut_y);
-	else
-		check_map(data, 'X', cut_x, cut_y);
+	if (cut[1] == INT_MAX)
+		cut[1] = 0;
+	(CHECK_BIT(data->status, OPT_PLAYER1)) ? check_map(data, 'O', cut)
+	: check_map(data, 'X', cut);
 }
 
 void	resolve(t_data *data)
@@ -148,10 +94,8 @@ void	resolve(t_data *data)
 	t_pos *tmp;
 
 	cut_piece(data);
-
 	if ((tmp = algo(data)))
 	{
-		
 		ft_putnbr((tmp->y));
 		write(1, " ", 1);
 		ft_putnbr((tmp->x));

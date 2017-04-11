@@ -12,7 +12,7 @@
 
 #include "filler.h"
 
-char *ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
 	int		len;
 	int		n;
@@ -26,9 +26,9 @@ char *ft_strjoin(char const *s1, char const *s2)
 	if (s2 == NULL && s1)
 		return (ft_strdup(s1));
 	counter = 0;
-	len = ft_strlen (s1);
+	len = ft_strlen(s1);
 	n = len + ft_strlen(s2) + 1;
-	if ((final = ft_strnew (n)) == NULL)
+	if ((final = ft_strnew(n)) == NULL)
 		return (NULL);
 	while (counter < n)
 	{
