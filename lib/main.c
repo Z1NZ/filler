@@ -16,7 +16,7 @@ void	loop(t_data *data, char *argv)
 {
 	char	*line;
 
-	while ((get_next_line(STDIN_FILENO, &line)) >= 0)
+	while ((get_next_line(STDIN_FILENO, &line)) > 0)
 	{
 		if (!CHECK_BIT(data->status, OPT_PLAYER_SET))
 			get_player(data, line, argv);
@@ -49,6 +49,5 @@ int		main(int argc, char **argv)
 	loop(data, *argv);
 	ft_putstr_fd("\e[?25h", 2);
 	free(data);
-	sleep(200);
 	return (0);
 }

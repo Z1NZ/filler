@@ -19,7 +19,7 @@ static int	check_reserve(char **reserve, char ***line)
 
 	tmp = NULL;
 	if (*reserve == NULL)
-		*reserve = (char*)malloc(sizeof(char) * 2);
+		*reserve = (char*)ft_memalloc(sizeof(char) * 2);
 	if (*reserve)
 		if ((ptr = ft_strchr(*reserve, '\n')))
 		{
@@ -64,7 +64,7 @@ int			get_next_line(int const fd, char **line)
 
 	if (!line)
 		return (-1);
-	ptr[2] = (char*)malloc(sizeof(char) * BUFF_SIZE + 1);
+	ptr[2] = (char*)ft_memalloc(sizeof(char) * BUFF_SIZE + 1);
 	if ((check_reserve(&reserve[fd], &line)) == 1)
 	{
 		free(ptr[2]);

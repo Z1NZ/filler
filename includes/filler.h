@@ -39,7 +39,7 @@
 # define DOWN				5
 # define ABS(number)		(number < 0) ? -(number) : (number)
 # define PIECE				data->piece
-# define P_P			data->piece.piece
+# define P_P				data->piece.piece
 # define MAP				data->map
 # define M_M				data->map.map
 

@@ -22,7 +22,7 @@ void	*ft_memalloc(size_t size)
 		return (NULL);
 	new_space = (void*)malloc(size * sizeof(void*));
 	if (!new_space)
-		return (NULL);
+		exit(-1);
 	ft_bzero(new_space, size);
 	return (new_space);
 }

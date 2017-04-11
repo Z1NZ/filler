@@ -46,7 +46,7 @@ char			**ft_strsplit(char const *s, char c)
 	if ((tok = s))
 	{
 		nb_tok = count_tok(s, c);
-		if ((big_array = (char**)malloc((nb_tok + 1) * sizeof(char*))))
+		if ((big_array = (char**)ft_memalloc((nb_tok + 1) * sizeof(char*))))
 		{
 			i = 0;
 			big_array[nb_tok] = NULL;
