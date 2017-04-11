@@ -22,11 +22,7 @@ void	get_map(t_data *data, char *line)
 	{
 		cur = (int)ft_atoi(tmp[0]);
 		if (cur <= data->map.y)
-		{
-			if (data->map.map[cur])
-				free(data->map.map[cur]);
 			data->map.map[cur] = ft_strdup(tmp[1]);
-		}
 		if (cur == (data->map.y - 1))
 		{
 			data->status |= OPT_MAP_SET;

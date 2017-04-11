@@ -16,7 +16,7 @@ void	loop(t_data *data, char *argv)
 {
 	char	*line;
 
-	while ((get_next_line(STDIN_FILENO, &line)) > 0)
+	while ((get_next_line(STDIN_FILENO, &line)) >= 0)
 	{
 		if (!CHECK_BIT(data->status, OPT_PLAYER_SET))
 			get_player(data, line, argv);
